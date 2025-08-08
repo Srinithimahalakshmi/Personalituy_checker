@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Type Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Personality Type Predictor</h1>
+        <p class="subheading">Enter the values for each trait to predict whether you're an Introvert, Extrovert, or Ambivert.</p>
+        <form method="POST" class="form-grid">
+            {% for feature in features %}
+                <div class="form-group">
+                    <label for="{{ feature }}">{{ feature.replace('_', ' ').title() }}</label>
+                    <input type="number" name="{{ feature }}" id="{{ feature }}" step="0.01" min="0" max="10" required>
+                </div>
+            {% endfor %}
+            <div class="form-group full-width">
+                <button type="submit">Predict Personality</button>
+            </div>
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                <h2>Predicted Personality:</h2>
+                <p>{{ prediction }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
